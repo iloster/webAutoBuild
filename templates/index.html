@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Cover Template for Bootstrap</title>
+
+     <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+
+    <!-- 可选的Bootstrap主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+  </head>
+
+  <body>
+        <div class="container" style = " text-align: center;padding-top: 50px;">
+           <button type="submit" class="btn btn-primary btn-lg" id = "myButton" onClick = "webBuild()">打   包</button>
+      </div>
+       <div class="container" style = " text-align: center;padding-top: 50px;display:none" id = "downloadDiv">
+        <a href = "/download/test.txt" id = "downloadLink">
+           <button type="submit" class="btn btn-primary btn-lg" id = "downloadButton">下  载 </button>
+        <a>
+      </div>
+       <div class="container" style = " text-align: center;padding-top: 50px; display:none" id = "apkname">sssss</div>
+      <div class="modal fade" id="tip">
+            <div class="modal-dialog">
+             <div class="modal-content">
+               <h3 class="modal-title">提示</h3>
+                <div class="modal-body"><p><h3>正在打包...</h3></p></div>
+              </div>
+           </div>
+      </div>
+  </body>
+
+<script type="text/javascript">
+function webBuild()
+{
+  $('#tip').modal('show');
+  url = "/webBuild/";
+  postdata(url)
+}
+
+function postdata(url)
+{
+    $.ajax({
+            type:"POST",
+            url:url,
+            dataType:"json",
+            success:function(data)
+              {
+              console.log(data);
+             /* $("#table").append('<tr><td>' + data.length + '</td></tr>')*/
+             if(data["ret"] == 0)
+                showError(data);
+             else
+               show(data);
+               }
+            });
+ }
+
+ function show(data)
+ {
+   $('#tip').modal('hide');
+   $('#downloadDiv').show();
+   $('#apkname').show();
+   $('#apkname').text(data["apkname"]);
+   $('#downloadLink').attr("href","/download/"+data["apkname"]);
+ }
+
+ function showError(data)
+ {
+   $('#apkname').show();
+   $('#apkname').text("打包失败");
+ }
+  </script>
+</html>
