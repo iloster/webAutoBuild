@@ -2,6 +2,7 @@
 import os
 import shutil
 import zipfile
+import time
 
 def updateProject():
     #更新代码
@@ -42,14 +43,26 @@ def checkApk():
     if len(apk) ==0:
         return False,'error'; 
     return True,apk[0]
+
+def renameApk():
+    apk = os.listdir(r'.\project\products\Apks') #所有的apks
+    if 'scqp.apk' in apk:
+        #获取当前时间  
+        nowTime = time.strftime('%Y%m%d%H%M%S',time.localtime(time.time()))
+        newName = '.\\project\\products\\Apks\\scqp_'+nowTime+'.apk'
+        os.rename(r'.\project\products\Apks\scqp.apk',newName)
+        return True,'scqp_'+nowTime+'.apk'
+    else:
+        return False,'error'
     
 def autoBuild():
     updateProject()
-    delApk()
+    #delApk()
     zipFile()
     moveFile()
     antBuild()
-    flag,name = checkApk()
+    #flag,name = checkApk()
+    flag,name = renameApk()
     if flag: #下载成功
         return {"ret":"1","apkname":name}
     return {"ret":"0"}

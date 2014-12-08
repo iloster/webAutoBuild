@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Cover Template for Bootstrap</title>
+    <title>四川棋牌网页版打包</title>
 
      <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
@@ -26,7 +26,7 @@
 
   <body>
         <div class="container" style = " text-align: center;padding-top: 50px;">
-           <button type="submit" class="btn btn-primary btn-lg" id = "myButton" onClick = "webBuild()">打   包</button>
+           <button type="button" class="btn btn-primary btn-lg" id = "myButton"  onClick = "webBuild()" >打   包</button>
       </div>
        <div class="container" style = " text-align: center;padding-top: 50px;display:none" id = "downloadDiv">
         <a href = "/download/test.txt" id = "downloadLink">
@@ -34,20 +34,17 @@
         <a>
       </div>
        <div class="container" style = " text-align: center;padding-top: 50px; display:none" id = "apkname">sssss</div>
-      <div class="modal fade" id="tip">
-            <div class="modal-dialog">
-             <div class="modal-content">
-               <h3 class="modal-title">提示</h3>
-                <div class="modal-body"><p><h3>正在打包...</h3></p></div>
-              </div>
-           </div>
-      </div>
   </body>
 
 <script type="text/javascript">
 function webBuild()
 {
-  $('#tip').modal('show');
+  $('#myButton').attr("disabled","disabled");
+  $('#myButton').text("正在打包...");
+
+  $('#downloadDiv').hide();
+  $('#apkname').hide();
+  console.log("ddddd");
   url = "/webBuild/";
   postdata(url)
 }
@@ -59,20 +56,35 @@ function postdata(url)
             url:url,
             dataType:"json",
             success:function(data)
-              {
+            {
               console.log(data);
              /* $("#table").append('<tr><td>' + data.length + '</td></tr>')*/
-             if(data["ret"] == 0)
+             /*if(data["ret"] == 0)
                 showError(data);
              else
-               show(data);
+               show(data);*/
+             switch(parseInt(data["ret"]))
+              {
+                case -1: showConflict(data);break; //有人正在打包的情况
+                case 0:  showError(data); break;
+                case 1:  showSuccess(data);   break;
                }
+            }
             });
  }
 
- function show(data)
+function showConflict(data)
+{
+   $('#myButton').removeAttr("disabled");
+   $('#myButton').text("打包");
+   $('#apkname').show();
+   $('#apkname').text("有人正在打包，请稍后刷新重试！");
+}
+
+ function showSuccess(data)
  {
-   $('#tip').modal('hide');
+   $('#myButton').removeAttr("disabled");
+    $('#myButton').text("打包")
    $('#downloadDiv').show();
    $('#apkname').show();
    $('#apkname').text(data["apkname"]);
@@ -81,6 +93,8 @@ function postdata(url)
 
  function showError(data)
  {
+   $('#myButton').removeAttr("disabled");
+   $('#myButton').text("打包");
    $('#apkname').show();
    $('#apkname').text("打包失败");
  }
