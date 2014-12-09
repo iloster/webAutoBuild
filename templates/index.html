@@ -7,15 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
 
     <title>四川棋牌网页版打包</title>
 
      <!-- 新 Bootstrap 核心 CSS 文件 -->
-    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+   <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+   <link rel = "stylesheet" href = "./templates/flat-ui.css">
 
-    <!-- 可选的Bootstrap主题文件（一般不用引入） -->
-    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
 
     <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
     <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
@@ -24,16 +22,27 @@
     <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
   </head>
 
-  <body>
-        <div class="container" style = " text-align: center;padding-top: 50px;">
-           <button type="button" class="btn btn-primary btn-lg" id = "myButton"  onClick = "webBuild()" >打   包</button>
-      </div>
+  <body style = "background-image:url(http://p3.qhimg.com/t01c67f3b9c16af6517.jpg);background-repeat:no-repeat;background-size: cover">
+    <div style = "border-color: transparent;font-size: 17px;align:center;padding-top: 11px;text-indent: 3px;">
+        <div class ="container" style = "padding-top:50px;width:50%;color:#FFFFFF;">
+           <p style ="padding-left:22%">Tips:</p>
+           <p style ="padding-left:25%">1.同时只支持一个人打包,打包期间请勿关闭该窗口<p>
+           <p style ="padding-left:25%">2.每次打包需要3-5分钟左右,打包成功后,会出现下载按钮,点击即可下载</p>
+           <p style ="padding-left:25%">3.所生成包名格式为:scqp_年月日时分秒.apk</p>
+        </div>
+       <!--打包按钮-->
+        <div class="container" style = " text-align: center;padding-top: 20px;">
+           <button  class="btn btn-hg btn-primary" id = "myButton"  onClick = "webBuild()" style = "cursor:pointer">一键生成apk</button>
+        </div>
+      <!--下载按钮-->
        <div class="container" style = " text-align: center;padding-top: 50px;display:none" id = "downloadDiv">
         <a href = "/download/test.txt" id = "downloadLink">
-           <button type="submit" class="btn btn-primary btn-lg" id = "downloadButton">下  载 </button>
+           <button type="submit" class="btn btn-primary btn-lg" id = "downloadButton">下载apk</button>
         <a>
       </div>
-       <div class="container" style = " text-align: center;padding-top: 50px; display:none" id = "apkname">sssss</div>
+      <!--文件名-->
+       <div class="container" style = " text-align: center;padding-top: 10px; display:none; color:#FFFFFF" id = "apkname">sssss</div>
+    <div>
   </body>
 
 <script type="text/javascript">
@@ -76,15 +85,15 @@ function postdata(url)
 function showConflict(data)
 {
    $('#myButton').removeAttr("disabled");
-   $('#myButton').text("打包");
+   $('#myButton').text("一键生成apk");
    $('#apkname').show();
-   $('#apkname').text("有人正在打包，请稍后刷新重试！");
+   $('#apkname').text("有人正在打包，请稍后重试！");
 }
 
  function showSuccess(data)
  {
    $('#myButton').removeAttr("disabled");
-    $('#myButton').text("打包")
+    $('#myButton').text("一键生成apk")
    $('#downloadDiv').show();
    $('#apkname').show();
    $('#apkname').text(data["apkname"]);
@@ -94,7 +103,7 @@ function showConflict(data)
  function showError(data)
  {
    $('#myButton').removeAttr("disabled");
-   $('#myButton').text("打包");
+   $('#myButton').text("一键生成apk");
    $('#apkname').show();
    $('#apkname').text("打包失败");
  }
