@@ -12,37 +12,154 @@
 
      <!-- 新 Bootstrap 核心 CSS 文件 -->
    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
-   <link rel = "stylesheet" href = "./templates/flat-ui.css">
-
+   <link rel = "stylesheet" href = "./templates/css/flat-ui.css">
+   <link rel = "stylesheet" href = "./templates/css/index.css">
 
     <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
     <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
-
+    <script src="./templates/js/flat-ui.min.js"></script>
+    <script src="./templates/js/application.js"></script>
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
   </head>
 
-  <body style = "background-image:url(http://p3.qhimg.com/t01c67f3b9c16af6517.jpg);background-repeat:no-repeat;background-size: cover">
-    <div style = "border-color: transparent;font-size: 17px;align:center;padding-top: 11px;text-indent: 3px;">
-        <div class ="container" style = "padding-top:50px;width:50%;color:#FFFFFF;">
-           <p style ="padding-left:22%">Tips:</p>
-           <p style ="padding-left:25%">1.同时只支持一个人打包,打包期间请勿关闭该窗口<p>
-           <p style ="padding-left:25%">2.每次打包需要3-5分钟左右,打包成功后,会出现下载按钮,点击即可下载</p>
-           <p style ="padding-left:25%">3.所生成包名格式为:scqp_年月日时分秒.apk</p>
+  <body>
+    <!--提示-->
+    <div class = "container tipInfo">
+      Tips:  1.同时只支持一个人打包,打包期间请勿关闭该窗口  
+      2.每次打包需要3-5分钟左右,打包成功后,会出现下载按钮,点击即可下载
+    </div>
+    <!--apk信息开始-->
+    <div class = "container apkInfo">
+       <table class="table table-bordered">
+            <tr>
+              <td colspan = "2">apk信息</td>
+            <tr>
+              <td>Package Name</td>
+              <td>{{apkInfo['packageName']}}</td>
+            </tr>
+            <tr>
+              <td>Version Name</td>
+              <td>{{apkInfo['versionName']}}</td>
+            </tr>
+            <tr>
+              <td>Version Name</td>
+              <td>{{apkInfo['versionCode']}}</td>
+            </tr>          
+             <tr>
+              <td>依赖版本号</td>
+              <td>{{apkInfo['dependApkVersion']}}</td>
+            </tr>
+            <tr>
+              <td colspan = "2">注意:Version Name要和依赖版本号一致</td>
+            <tr>
+       </table>
+       <table class="table table-bordered">
+            <td colspan = "2">大厅及游戏</td>
+             <tr>
+              <td>大厅版本号</td>
+              <td>{{apkInfo['hallVersion']}}</td>
+            </tr>
+            <tr>
+              <td>马股</td>
+              <td>{{apkInfo['magu']}}</td>
+            </tr>
+            <tr>
+              <td>川味斗地主</td>
+              <td>{{apkInfo['scddz']}}</td>
+            </tr>
+            <tr>
+              <td>二七十</td>
+              <td>{{apkInfo['eqs']}}</td>
+            </tr>
+            <tr>
+              <td>四川麻将</td>
+              <td>{{apkInfo['scmj']}}</td>
+            </tr>
+       </table>
+    </div>
+    <!--apk信息结束-->
+    <!--渠道信息-->
+    <div class = "container channelInfo">
+      <p>渠道列表:</p>
+      <div>
+       <label class="checkbox checkbox-inline" for="checkbox1">
+         <input type="checkbox" data-toggle="checkbox" value="110332" id="checkbox1" checked="">
+            广点通(110332)
+      </label>
+       <label class="checkbox checkbox-inline" for="checkbox2">
+          <input type="checkbox" data-toggle="checkbox" value="110184" id="checkbox2">
+            百度搜索(110184)
+       </label>
+       <label class="checkbox checkbox-inline" for="checkbox3">
+          <input type="checkbox" data-toggle="checkbox" value="110379" id="checkbox3">
+            移动mm(110379)
+      </label>
+       <label class="checkbox checkbox-inline" for="checkbox4">
+         <input type="checkbox" data-toggle="checkbox"  value="112856" id="checkbox4">
+            应用宝(112856)
+      </label>
+     </div>
+     <div>
+       <label class="checkbox checkbox-inline" for="checkbox5">
+          <input type="checkbox" data-toggle="checkbox" value="112860" id="checkbox5">
+            豌豆荚(112860)
+      </label>
+    </div>
+
+    </div>
+    <!--渠道信息结束-->
+    <!--打包区域-->
+    <div class = "container packageInfo">
+       <p>打包区域:</p>
+      <div style="display:inline;padding-left:22%;padding-right:5%">友盟APPID:</div>
+        <div style="display:inline">
+           <label class="radio radio-inline">
+             <input type="radio" data-toggle="radio" name="optionsRadios" id="optionsRadios1" value="0" data-radiocheck-toggle="radio" checked = "checked">
+                    测试
+          </label>
+           <label class="radio radio-inline">
+              <input type="radio" data-toggle="radio" name="optionsRadios" id="optionsRadios2" value="1" data-radiocheck-toggle="radio">
+                   正式
+           </label>
         </div>
+    </div>
+
+    <div class= "container packageInfo">
+      <div style="display:inline;padding-left:22%;margin-right:50px">内置游戏:</div>
+      <div style="display:inline">
+        <select data-toggle="select" class="form-control select select-primary mrs mbm" id = "gameSelect">
+          <option value="0">全部</option>
+          <option value="1">马股</option>
+          <option value="2">二七十</option>
+          <option value="3">血流成河</option>
+          <option value="4">川味斗地主</option>
+           <option value="5">不内置游戏</option>
+        </select>
+      </div>
+     </div>
+    </div>
+    <!--打包区域结束-->
        <!--打包按钮-->
-        <div class="container" style = " text-align: center;padding-top: 20px;">
+    <div class = "container packageInfo">
+        <div class = "buildBtn">
            <button  class="btn btn-hg btn-primary" id = "myButton"  onClick = "webBuild()" style = "cursor:pointer">一键生成apk</button>
         </div>
+        <div class="progress">
+         <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+           60%
+         </div>
+      </div>
       <!--下载按钮-->
-       <div class="container" style = " text-align: center;padding-top: 50px;display:none" id = "downloadDiv">
+       <div class = "downloadBtn" id = "downloadDiv">
         <a href = "/download/test.txt" id = "downloadLink">
            <button type="submit" class="btn btn-primary btn-lg" id = "downloadButton">下载apk</button>
         <a>
       </div>
       <!--文件名-->
-       <div class="container" style = " text-align: center;padding-top: 10px; display:none; color:#FFFFFF" id = "apkname">sssss</div>
-    <div>
+       <div class="apkName" id = "apkname">sssss</div>
+    </div>
+      <!--打包按钮结束-->
   </body>
 
 <script type="text/javascript">
@@ -53,9 +170,24 @@ function webBuild()
 
   $('#downloadDiv').hide();
   $('#apkname').hide();
+
+  console.log($('#gameSelect  option:selected').val());
   console.log("ddddd");
+  //获取渠道
+  var channel_array=new Array();
+  $('input[type="checkbox"]:checked').each(function(){
+     channel_array.push($(this).val());//向数组中添加元素
+  });
+  var channelStr=channel_array.join('-');
+  console.log(channelStr);
+
   url = "/webBuild/";
-  postdata(url)
+  //获取appid
+  appid = "10300";
+  //获取打包类型
+  gametype = $('#gameSelect  option:selected').val();
+  posturl = url + appid + "/" + gametype + "/" + channelStr + "/";
+  postdata(posturl)
 }
 
 function postdata(url)

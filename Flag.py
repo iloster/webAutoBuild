@@ -1,4 +1,9 @@
-﻿import os
+# -*- coding:utf-8 -*-
+#   Author:ZedLi
+#   Date:2014.12.22
+#   Description:由于同时只能一个人打包，增加一个标志，判断目前是否有人正在打包
+
+import os
 FLAG_PATH = r'.\isExist.flag'
 #创建一个Flag文件
 def createFlag():
