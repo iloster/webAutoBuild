@@ -79,17 +79,29 @@ body
 {
 	text-align: center;
 	padding-top: 10px;
-	display:none;
+	display:true;
 	float:left;
-	width:40%;
+	width:80%;
 	margin-left:20%;
+	 color:#FFFFFF;
+	 font-size: 20px;
 	border:0px solid #000;
+}
+
+a:hover
+{	
+	font-weight:bold;
+	cursor:hand;
+}
+a:visited{
+	text-decoration:overline;
+	cursor:hand;
 }
 .apkName
 {
 	float:left;
 	width:30%;
-	border:0px solid #000;
+	border:1px solid #000;
 	text-align:center;
 	margin-top:3%;
 	color:#FFFFFF;

@@ -9,23 +9,23 @@ def show():
     apkInfo = getApkInfo();
     return template('templates/index',apkInfo = apkInfo)
 
-@app.route('/webBuild/:appid/:gametype/:channel/',method='post')
-def test(appid,gametype,channel):
+@app.route('/webBuild/:appid/:gametype/:channel/:versionName',method='post')
+def test(appid,gametype,channel,versionName):
     if checkFlag():
         return {"ret":-1}
     else:
         createFlag()
         print appid,gametype,channel
-        result = autoBuild(appid,gametype,channel)
+        result = autoBuild(appid,gametype,channel,versionName)
         deleteFlag()
         return result
 
 #下载apk文件
-@app.route('/download/:apkname',method = 'get')
-def download(apkname):
+@app.route('/download/:nowTime/:apkname',method = 'get')
+def download(nowTime,apkname):
     print apkname
     
-    return static_file(apkname, root='./project/products/Apks/',download=apkname)
+    return static_file(apkname, root='./project/products/Apks/'+nowTime,download=apkname)
 
 @app.route('/templates/:filename')
 def send_static_index(filename):

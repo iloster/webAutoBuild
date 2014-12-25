@@ -72,8 +72,14 @@ def renameApk():
     else:
         return False,'error'
 
+def listApk(path):
+    apklist = os.listdir(path)
+    if len(apklist) >0:
+        return True,apklist
+    else:
+        return False,'error'
     
-def buildProperties(channel):
+def buildProperties(channel,versionName):
     config_channel_zhu = r'.\project\products\channel_config\config_channel_zhu.xml'
     base_build_properties = r'.\project\products\channel_config\base_build.properties'
     final_build_properties = r'.\project\products\engine_android\build.properties'
@@ -93,25 +99,32 @@ def buildProperties(channel):
                 channel_idxml = "channel_id\="+channelList[i] + ";"
                 channel_keyxml = "channel_key\="+item.getElementsByTagName('channelKey')[0].childNodes[0].data + ";"
                 umeng_channelxml = "umeng_channel\="+ item.getElementsByTagName('umeng_channel')[0].childNodes[0].data + ";"
-                channelStr = appidxml+channel_idxml+channel_keyxml+umeng_channelxml
+                apknamexml = "apkname\=" + item.getElementsByTagName('channelOutputName')[0].childNodes[0].data % versionName + ','
+                channelStr = appidxml+channel_idxml+channel_keyxml+umeng_channelxml+apknamexml
+                
         allChannelStr = allChannelStr + channelStr
+
+    nowTime = time.strftime('%Y%m%d%H%M%S',time.localtime(time.time()))
+    apkOutPathxml = r"E\:\\GitHub\\webBuild\\project\\products\\Apks\\" + nowTime
+    apkOutPath = '.\\project\\products\\Apks\\' + nowTime
+    os.makedirs(apkOutPath)
     fp = open(final_build_properties,'w')
-    fp.write(baseContent + "channel.list=" + allChannelStr)
+    fp.write(baseContent + "channel.list=" + allChannelStr+"\n"+"apk.out.dir="+apkOutPathxml)
     fp.close()
-    #return allChannelStr
+    return apkOutPath,nowTime
         
     
 #appid:测试还是正式   gametype:0.全部 1.马股 2.二七十 3.血流成河  4.川味斗地主 5.不内置游戏
-def autoBuild(appid,gametype,channel):
+def autoBuild(appid,gametype,channel,versionName):
     #改写build.properties
-    buildProperties(channel)
+    apkOutPath,nowTime= buildProperties(channel,versionName)
     updateProject()
     zipFile(gametype)
     #moveFile()
     antBuild()
     #flag,name = checkApk()
-    flag,name = renameApk()
+    flag,apklist = listApk(apkOutPath)
     if flag: #下载成功
-        return {"ret":"1","apkname":name}
+        return {"ret":"1","apklist":apklist,"nowTime":nowTime}
     return {"ret":"0"}
     

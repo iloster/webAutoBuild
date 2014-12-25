@@ -40,10 +40,10 @@
             </tr>
             <tr>
               <td>Version Name</td>
-              <td>{{apkInfo['versionName']}}</td>
+              <td id = "versionName">{{apkInfo['versionName']}}</td>
             </tr>
             <tr>
-              <td>Version Name</td>
+              <td>Version Code</td>
               <td>{{apkInfo['versionCode']}}</td>
             </tr>          
              <tr>
@@ -105,6 +105,36 @@
           <input type="checkbox" data-toggle="checkbox" value="112860" id="checkbox5">
             豌豆荚(112860)
       </label>
+      <label class="checkbox checkbox-inline" for="checkbox6">
+          <input type="checkbox" data-toggle="checkbox" value="110136" id="checkbox6">
+            收录(110136)
+      </label>
+      <label class="checkbox checkbox-inline" for="checkbox7">
+          <input type="checkbox" data-toggle="checkbox" value="110380" id="checkbox7">
+            天翼官方渠道(110380)
+      </label>
+      <label class="checkbox checkbox-inline" for="checkbox8">
+          <input type="checkbox" data-toggle="checkbox" value="110454" id="checkbox8">
+            优雅大厅(110454)
+      </label>
+    </div>
+      <div>
+       <label class="checkbox checkbox-inline" for="checkbox9">
+          <input type="checkbox" data-toggle="checkbox" value="110678" id="checkbox9">
+            泡椒网(110678)
+      </label>
+      <label class="checkbox checkbox-inline" for="checkbox10">
+          <input type="checkbox" data-toggle="checkbox" value="110677" id="checkbox10">
+            点智互动(110677)
+      </label>
+      <label class="checkbox checkbox-inline" for="checkbox11">
+          <input type="checkbox" data-toggle="checkbox" value="110682" id="checkbox11">
+            磨盘时代(110682)
+      </label>
+      <label class="checkbox checkbox-inline" for="checkbox12">
+          <input type="checkbox" data-toggle="checkbox" value="112728" id="checkbox12">
+            智能WIFI(112728)
+      </label>
     </div>
 
     </div>
@@ -141,7 +171,7 @@
     </div>
     <!--打包区域结束-->
        <!--打包按钮-->
-    <div class = "container packageInfo">
+    <div class = "container packageInfo" id = "package">
         <div class = "buildBtn">
            <button  class="btn btn-hg btn-primary" id = "myButton"  onClick = "webBuild()" style = "cursor:pointer">一键生成apk</button>
         </div>
@@ -150,14 +180,14 @@
            60%
          </div>
       </div>
+      <div class="apkName" id = "apkname">tip</div>
       <!--下载按钮-->
-       <div class = "downloadBtn" id = "downloadDiv">
-        <a href = "/download/test.txt" id = "downloadLink">
-           <button type="submit" class="btn btn-primary btn-lg" id = "downloadButton">下载apk</button>
-        <a>
-      </div>
+      
+      <div id = "downloadInfo">
+        <!--<a  href = "/download/test.txt" class = "downloadBtn" title = "点击下载">scqp_gdt-scqipai_110332_v1.3.6.apk</a>-->
+       </div>
       <!--文件名-->
-       <div class="apkName" id = "apkname">sssss</div>
+       
     </div>
       <!--打包按钮结束-->
   </body>
@@ -186,8 +216,11 @@ function webBuild()
   appid = "10300";
   //获取打包类型
   gametype = $('#gameSelect  option:selected').val();
-  posturl = url + appid + "/" + gametype + "/" + channelStr + "/";
-  postdata(posturl)
+  //获取版本号
+  versionName = $('#versionName').text()
+  posturl = url + appid + "/" + gametype + "/" + channelStr + "/" + versionName ;
+  postdata(posturl);
+  //showSuccess(url);
 }
 
 function postdata(url)
@@ -224,12 +257,22 @@ function showConflict(data)
 
  function showSuccess(data)
  {
+  console.log("success");
    $('#myButton').removeAttr("disabled");
-    $('#myButton').text("一键生成apk")
-   $('#downloadDiv').show();
-   $('#apkname').show();
-   $('#apkname').text(data["apkname"]);
-   $('#downloadLink').attr("href","/download/"+data["apkname"]);
+    $('#myButton').text("一键生成apk");
+
+    var arr = data["apklist"];
+    console.log(arr);
+    for(var i = 0;i<arr.length;i++)
+    {
+        str =  '<a href =/download/'+data["nowTime"]+'/'+arr[i] +' class = "downloadBtn" title = "点击下载">'+arr[i]+'</a>';
+        $('#downloadInfo').append(str);
+    }
+  
+   //$('#downloadDiv').show();
+   //$('#apkname').show();
+   //$('#apkname').text(data["apkname"]);
+   //$('#downloadLink').attr("href","/download/"+data["apkname"]);
  }
 
  function showError(data)
@@ -238,6 +281,23 @@ function showConflict(data)
    $('#myButton').text("一键生成apk");
    $('#apkname').show();
    $('#apkname').text("打包失败");
+ }
+
+ function download()
+ {
+  console.log("download");
+  var arr = ["test"];
+  for(var i=0;i<arr.length;i++)
+  {
+    console.log(i,arr[i]);
+    url = "/download/" + arr[i];
+    var inputs = '';
+    inputs+='<input type="hidden" name="'+arr[i]+'" value="cheng" />'; 
+          // request发送请求
+     console.log("1");
+    jQuery('<form action="'+ url +'" method="get">'+inputs+'</form>').appendTo('body').submit().remove();
+     console.log("2");
+    }
  }
   </script>
 </html>
