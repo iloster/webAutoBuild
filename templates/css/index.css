@@ -1,11 +1,11 @@
 body
 {
-	background-image:url(http://p3.qhimg.com/t01c67f3b9c16af6517.jpg);
+	background-image:url(http://p0.qhimg.com/d/inn/7a5496aa/shendanbizhi.jpg);
 	background-repeat:no-repeat;
 	background-size: cover;
 	font-family: "Microsoft YaHei" ! important;
 	font-size: 17px;
-	color:#FFFFFF;
+	color:#000000;
 }
 .tipInfo
 {
@@ -14,7 +14,7 @@ body
   text-align:center;
   margin-top: 11px;
   text-indent: 3px;
-  color:#FFFFFF;
+ 
   border:0px solid #000
 }
 
@@ -25,7 +25,7 @@ body
   text-align:center;
   margin-top: 11px;
   text-indent: 3px;
-  color:#FFFFFF;
+  
   border:0px solid #000
 }
 .table
@@ -83,7 +83,6 @@ body
 	float:left;
 	width:80%;
 	margin-left:20%;
-	 color:#FFFFFF;
 	 font-size: 20px;
 	border:0px solid #000;
 }
@@ -104,6 +103,5 @@ a:visited{
 	border:1px solid #000;
 	text-align:center;
 	margin-top:3%;
-	color:#FFFFFF;
 	display: none;
 }

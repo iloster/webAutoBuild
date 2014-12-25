@@ -27,7 +27,7 @@
     <!--提示-->
     <div class = "container tipInfo">
       Tips:  1.同时只支持一个人打包,打包期间请勿关闭该窗口  
-      2.每次打包需要3-5分钟左右,打包成功后,会出现下载按钮,点击即可下载
+      2.每次打包需要3-5分钟左右,打包成功后,会出现下载链接,点击即可下载
     </div>
     <!--apk信息开始-->
     <div class = "container apkInfo">
@@ -157,7 +157,7 @@
 
     <div class= "container packageInfo">
       <div style="display:inline;padding-left:22%;margin-right:50px">内置游戏:</div>
-      <div style="display:inline">
+      <div style="display:inline;">
         <select data-toggle="select" class="form-control select select-primary mrs mbm" id = "gameSelect">
           <option value="0">全部</option>
           <option value="1">马股</option>
@@ -200,6 +200,8 @@ function webBuild()
 
   $('#downloadDiv').hide();
   $('#apkname').hide();
+
+  $("a").remove(".downloadBtn");
 
   console.log($('#gameSelect  option:selected').val());
   console.log("ddddd");
