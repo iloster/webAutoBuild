@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>四川棋牌网页版打包</title>
+
+     <!-- 新 Bootstrap 核心 CSS 文件 -->
+   <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+   <link rel = "stylesheet" href = "./templates/css/flat-ui.css">
+   <link rel = "stylesheet" href = "./templates/css/index.css">
+   <link rel = "stylesheet" href = "./templates/css/parsexml.css">
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+    <script src="./templates/js/flat-ui.min.js"></script>
+    <script src="./templates/js/application.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+  </head>
+
+  <body>
+    <div class = "container navInfo">
+            <nav class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+            <span class="sr-only">Toggle navigation</span>
+          </button>
+          <a class="navbar-brand" href="#">四川棋牌</a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-collapse-01">
+          <ul class="nav navbar-nav">
+            <li><a href="/">打包</a></li>
+            <li class = "active"><a href="/parsexml">工具</a></li>
+          </ul>
+          <form class="navbar-form navbar-right" action="#" role="search">
+            <div class="form-group">
+              <div class="input-group">
+                <input class="form-control" id="navbarInput-01" type="search" placeholder="Search">
+                <span class="input-group-btn">
+                  <button type="submit" class="btn"><span class="fui-search"></span></button>
+                </span>
+              </div>
+            </div>
+          </form>
+        </div><!-- /.navbar-collapse -->
+      </nav><!-- /navbar -->
+    </div>
+  <div class = "container tipInfo">
+    Tips:选择布局xml文件,输入类名,即可自动生成s_controlConfig和findView.
+  </div>
+    <!--上传区域开始-->
+   <div class="container file-box"> 
+    <!--
+    <form action="/upload" method="post" enctype="multipart/form-data">
+			
+			<input type="text"  name="name" id="photoCover" class="input-large form-control"  style = "width:50%;float:left"/>
+      <input type="file" name="date" id="lefile"  style="display:true" />
+
+			   <span style = "width:30%;float:left">
+			   	<a class="btn btn-primary" onclick="$('input[id=lefile]').click();">Browse</a>
+			  	<span>
+         <input type = "submit" class="btn btn-primary" value = "upload"/>
+	   </form>-->
+     
+     <form action="/upload" method="post" enctype="multipart/form-data">
+      <input type="file" name = "data" style = "border:0px solid #000;margin-left:40%;margin-bottom:1%"  />
+       <input type="text" name = "name" style = "border:0px solid #000;width:30%;float:left;margin-left:30%" class = "input-large form-control" placeholder="输入类名(不能为空)"/>    
+       <input type = submit class="btn btn-primary" value = "upload" style = "border:0px solid #000;float:left;margin-left:1%"/>
+    </form>
+  
+	</div> 
+
+    <!--上传区域结束-->
+     <div class = "container">
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active"><a href="#s_controls" role="tab" data-toggle="tab">s_controlConfig</a></li>
+          <li role="presentation"><a href="#findViews" role="tab" data-toggle="tab">findViews</a></li>
+      </ul>
+
+   </div>
+
+    <div class="tab-content">
+      <div role="tabpanel" class="container xmlResult tab-pane active" id="s_controls">
+         %if len(xmlresults1) == 3:
+            %for i in range(len(xmlresults1[0])):
+                <p class = "efont">[{{xmlresults1[2]}}.s_controls.{{xmlresults1[1][i]}}]={{'{'+xmlresults1[0][i][8:]+'}'}};</p>
+            %end
+         %end
+      </div>
+
+      <div role="tabpanel" class="container xmlResult tab-pane" id="findViews">
+         %if len(xmlresults1) == 3:
+            %for i in range(len(xmlresults1[0])):
+             <p>self.m_{{xmlresults1[1][i]}} = self:findViewById(self.m_ctrl.{{xmlresults1[1][i]}});</p>
+            %end
+         %end
+      </div>
+    </div>
+
+    %if len(xmlresults1) == 3 and len(xmlresults1[0])>=16:
+      <div class = "container footer1">
+         Powered by 四川棋牌客户端
+      </div>
+    %else:
+      <div class = "container footer">
+         Powered by 四川棋牌客户端
+      </div>
+    %end
+</body>
+
+<script type="text/javascript">
+/*
+$('input[id=lefile]').change(function() {
+	console.log($(this).val());
+	   $('#photoCover').val($(this).val());
+	});
+*/
+function check()
+{
+  console.log("check");
+}
+
+</script>
+</html>

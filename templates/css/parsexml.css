@@ -1,0 +1,21 @@
+.file-box
+{ 
+  margin-top: 15px;
+  width:60%;
+  border-color: transparent;
+  text-align:center;
+  text-indent: 3px;
+  
+  border:0px solid #000
+} 
+
+.xmlResult
+{
+  width:60%;
+  border-color: transparent;
+ 
+  text-indent: 3px;
+  
+  border:0px solid #000
+}
+

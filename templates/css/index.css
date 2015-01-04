@@ -4,15 +4,27 @@ body
 	background-repeat:no-repeat;
 	background-size: cover;
 	font-family: "Microsoft YaHei" ! important;
+	/*font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif!important;*/
 	font-size: 17px;
 	color:#000000;
+}
+
+.navInfo
+{
+  width:75%;
+  border-color: transparent;
+  text-align:center;
+  margin-top: 20px;
+  text-indent: 3px;
+ 
+  border:0px solid #000
 }
 .tipInfo
 {
   width:80%;
   border-color: transparent;
   text-align:center;
-  margin-top: 11px;
+  margin-top: 5px;
   text-indent: 3px;
  
   border:0px solid #000
@@ -104,4 +116,21 @@ a:visited{
 	text-align:center;
 	margin-top:3%;
 	display: none;
+}
+
+.footer
+{
+    text-align:center;
+    position:absolute;
+    bottom: 10px;
+    width:100%;
+  
+}
+
+.footer1
+{
+    text-align:center;
+    width:100%;
+    margin-top: 20px;
+  
 }

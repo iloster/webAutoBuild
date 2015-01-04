@@ -79,7 +79,7 @@ def listApk(path):
     else:
         return False,'error'
     
-def buildProperties(channel,versionName):
+def buildProperties(channel,versionName,appid):
     config_channel_zhu = r'.\project\products\channel_config\config_channel_zhu.xml'
     base_build_properties = r'.\project\products\channel_config\base_build.properties'
     final_build_properties = r'.\project\products\engine_android\build.properties'
@@ -98,9 +98,14 @@ def buildProperties(channel,versionName):
                 appidxml = "appid\=103000;"
                 channel_idxml = "channel_id\="+channelList[i] + ";"
                 channel_keyxml = "channel_key\="+item.getElementsByTagName('channelKey')[0].childNodes[0].data + ";"
+                if appid == 1 or appid == '1':
+                    umeng_appkeyxml = "umeng_appkey\=" + item.getElementsByTagName('umeng_appkey')[0].childNodes[0].data + ";"
+                else:
+                    umeng_appkeyxml = "umeng_appkey\=" + item.getElementsByTagName('umeng_appkey_test')[0].childNodes[0].data + ";"
+                    
                 umeng_channelxml = "umeng_channel\="+ item.getElementsByTagName('umeng_channel')[0].childNodes[0].data + ";"
                 apknamexml = "apkname\=" + item.getElementsByTagName('channelOutputName')[0].childNodes[0].data % versionName + ','
-                channelStr = appidxml+channel_idxml+channel_keyxml+umeng_channelxml+apknamexml
+                channelStr = appidxml+channel_idxml+channel_keyxml+ umeng_appkeyxml +umeng_channelxml +apknamexml
                 
         allChannelStr = allChannelStr + channelStr
 
@@ -114,10 +119,10 @@ def buildProperties(channel,versionName):
     return apkOutPath,nowTime
         
     
-#appid:测试还是正式   gametype:0.全部 1.马股 2.二七十 3.血流成河  4.川味斗地主 5.不内置游戏
+#appid:0.测试还是1.正式   gametype:0.全部 1.马股 2.二七十 3.血流成河  4.川味斗地主 5.不内置游戏
 def autoBuild(appid,gametype,channel,versionName):
     #改写build.properties
-    apkOutPath,nowTime= buildProperties(channel,versionName)
+    apkOutPath,nowTime= buildProperties(channel,versionName,appid)
     updateProject()
     zipFile(gametype)
     #moveFile()
