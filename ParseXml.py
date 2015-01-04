@@ -1,4 +1,9 @@
 #-*- coding: UTF-8 -*-
+#-----------------------------------
+#   python2.7
+#   author:loster
+#   description:解析xml
+#-------------------------------------
 import  xml.etree.ElementTree as ET
 
 def getXml(fileName):
